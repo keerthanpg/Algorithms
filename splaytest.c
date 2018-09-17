@@ -4,7 +4,7 @@
 
 typedef struct tree_node Tree;
 struct tree_node{
-	Tree * left, * right, *parent;
+	Tree * left, * right, * parent;
 	int item;
 };
 
@@ -49,16 +49,18 @@ void splayTestMyTree(Tree* splayTree, int key){
 				splayTree = splayTree->left;
 				depth ++;
 			}
-		}
-		if(splayTree == NULL){
-			printf("Null tree");
-			break;
-		}
+		}		
 	}
-
+	
 
 	while(depth){		
 		Tree * parent = splayTree->parent;
+		printf("depth = %d", depth);
+
+		if(parent == NULL){
+			printf("Parent is null\n");
+			break;
+		}
 		// zig case
 		if(splayTree->item > parent->item){
 			// so the splay element is the right child of parent									
@@ -70,7 +72,15 @@ void splayTestMyTree(Tree* splayTree, int key){
 			parent->left = splayTree->right;
 			splayTree->right = parent;	
 		}
-		splayTree->parent = NULL;
+		splayTree->parent = parent->parent;
+		if(parent->parent != NULL){
+			if(parent->parent->left == parent){
+				parent->parent->left = splayTree;
+			}
+			else{
+				parent->parent->right = splayTree;
+			}
+		}
 		parent->parent = splayTree;	
 		depth --;		
 	}	
@@ -92,6 +102,31 @@ void printSplayTree(Tree * splayTree){
 	}	
 }*/
 
+
+
+
+int main(){
+int n, m, i;
+scanf("%d %d\n", &n, &m);
+
+printf("first:line %d, %d\n", n, m);
+
+Tree * splayTree = createSplayTree(n);
+printf("created splay tree\n");
+
+int key;
+
+
+for( i = 0; i < m; i = i + 1 ){
+   	scanf("%d", &key);
+   	splayTestMyTree(splayTree, key);
+  }
+
+
+return 0;
+}
+
+/*
 
 int main(){
 	int n, m;
@@ -130,7 +165,7 @@ int main(){
     
 
 	return 0;
-}
+}*/
 
 
 
