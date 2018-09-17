@@ -28,10 +28,7 @@ Tree * createSplayTree(int n){
 	return root;
 }
 
-void splayTestMyTree(Tree* splayTree, int key){
-	if(splayTree == NULL)
-		return;
-	printf("hi");
+Tree * splayTestMyTree(Tree* splayTree, int key){	
 	int depth = 0;
 	Tree * root = splayTree;
 	while(1){
@@ -49,7 +46,11 @@ void splayTestMyTree(Tree* splayTree, int key){
 				splayTree = splayTree->left;
 				depth ++;
 			}
-		}		
+		}	
+		else{
+			printf("splaytree is null\n");
+			return splayTree;
+		}	
 	}
 	
 
@@ -83,7 +84,9 @@ void splayTestMyTree(Tree* splayTree, int key){
 		}
 		parent->parent = splayTree;	
 		depth --;		
-	}	
+	}
+
+	return splayTree;
 
 }
 /*
@@ -119,7 +122,7 @@ int key;
 
 for( i = 0; i < m; i = i + 1 ){
    	scanf("%d", &key);
-   	splayTestMyTree(splayTree, key);
+   	splayTree = splayTestMyTree(splayTree, key);
   }
 
 
